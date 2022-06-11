@@ -32,8 +32,6 @@
     "ECRRepository": {
       "Type" : "AWS::ECR::Repository",
       "Properties" : {
-          "EncryptionConfiguration" : {"encryptionType":  false},
-          "ImageScanningConfiguration" : {"scanOnPush":  false},
           "ImageTagMutability" : "MUTABLE",
           "RepositoryName" : "sarah"
         }
