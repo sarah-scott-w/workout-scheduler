@@ -12,7 +12,7 @@
   },
 
   "Resources" : {
-    "program-dynamodbtable" : {
+    "ProgramTable" : {
       "Type" : "AWS::DynamoDB::Table",
       "Properties" : {
         "TableName": {"Ref" : "DynamoTableNameParameter"},
