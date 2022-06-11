@@ -58,9 +58,7 @@ jobs:
         with:
           name: ${{ steps.resource-names.outputs.stack_name }}
           template: cloudformation/stack.json
-          env:
-            HELLO: hello_world
-          tags: [{\"Key\": \"GitRepo\", \"Value\": \"$HELLO\"}]
+          tags: [{\"Key\": \"GitRepo\", \"Value\": \"HELLO\"}]
           no-fail-on-empty-changeset: "1"
           parameter-overrides: >-
             DynamoTableNameParameter=${{ steps.resource-names.outputs.programs_table_name }},
