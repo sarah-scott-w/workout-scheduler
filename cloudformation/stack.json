@@ -8,6 +8,11 @@
         "Type" : "String",
         "Default" : "sarah-wo-scheduler-program-newtablename",
         "Description" : "DynamoDB table name to be generated"
+      },
+    "ECRRepoNameParameter" : {
+        "Type" : "String",
+        "Default" : "sarah-wo-scheduler-program-newtablename",
+        "Description" : "DynamoDB table name to be generated"
       }
   },
 
@@ -33,7 +38,7 @@
       "Type" : "AWS::ECR::Repository",
       "Properties" : {
           "ImageTagMutability" : "MUTABLE",
-          "RepositoryName" : "sarah"
+          "RepositoryName" : {"Ref" : "ECRRepoNameParameter"}
         }
     }
   },
