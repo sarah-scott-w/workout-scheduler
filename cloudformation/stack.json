@@ -129,6 +129,7 @@
           }
         ],
         "NetworkMode": "awsvpc",
+        "ExecutionRoleArn": "arn:aws:iam::751341637814:role/ecsTaskExecutionRole",
         "RequiresCompatibilities": ["FARGATE"],
         "Family": {"Ref":  "ECSClusterNameParameter"},
         "Volumes": []
