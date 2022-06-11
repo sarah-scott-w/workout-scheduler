@@ -21,6 +21,11 @@
       "Type": "String",
       "Default": "sarah-wo-scheduler-task",
       "Description": "DynamoDB table name to be generated"
+    },
+    "ECSContainerNameParameter": {
+      "Type": "String",
+      "Default": "sarah-wo-scheduler-container",
+      "Description": "DynamoDB table name to be generated"
     }
   },
   "Resources": {
@@ -85,7 +90,7 @@
         "ContainerDefinitions": [
           {
             "Name": {
-              "Ref": "ECSTaskNameParameter"
+              "Ref": "ECSContainerNameParameter"
             },
             "MountPoints": [],
             "Image": {
@@ -123,6 +128,9 @@
             }
           }
         ],
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": ["FARGATE"],
+        "Family": {"Ref":  "ECSClusterNameParameter"},
         "Volumes": []
       }
     }
