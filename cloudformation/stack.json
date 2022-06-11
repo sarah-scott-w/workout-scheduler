@@ -101,6 +101,7 @@
               ]]
             },
             "Cpu": 0,
+            "MemoryReservation": 4,
             "PortMappings": [],
             "Essential": true,
             "LogConfiguration": {
