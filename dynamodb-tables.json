@@ -6,7 +6,7 @@
   "Parameters" : {
       "DynamoTableNameParameter" : {
         "Type" : "String",
-        "Default" : "sarah-wo-scheduler-program",
+        "Default" : "sarah-wo-scheduler-program-newtablename",
         "Description" : "DynamoDB table name to be generated"
       }
   },
