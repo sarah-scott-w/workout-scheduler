@@ -4,33 +4,33 @@
   "Parameters": {
     "DynamoTableNameParameter": {
       "Type": "String",
-      "Default": "sarah-wo-scheduler-program-newtablename",
+      "Default": "sarah-wo-scheduler-program",
       "Description": "DynamoDB table name to be generated"
     },
     "ECRRepoNameParameter": {
       "Type": "String",
       "Default": "sarah-wo-scheduler-repo",
-      "Description": "DynamoDB table name to be generated"
+      "Description": "ECR Repo name to be created"
     },
     "ECSClusterNameParameter": {
       "Type": "String",
       "Default": "sarah-wo-scheduler-cluster",
-      "Description": "DynamoDB table name to be generated"
+      "Description": "ECS Cluster name to be created"
     },
     "ECSTaskNameParameter": {
       "Type": "String",
       "Default": "sarah-wo-scheduler-task",
-      "Description": "DynamoDB table name to be generated"
+      "Description": "ECS Task Definition name to be created"
     },
     "ECSContainerNameParameter": {
       "Type": "String",
       "Default": "sarah-wo-scheduler-container",
-      "Description": "DynamoDB table name to be generated"
+      "Description": "ECS Container name"
     },
     "ImageTagParameter": {
       "Type": "String",
-      "Default": "docker-image-tag",
-      "Description": "DynamoDB table name to be generated"
+      "Default": "latest",
+      "Description": "docker image tag to use for task definition"
     }
   },
   "Resources": {
