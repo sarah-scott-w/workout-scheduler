@@ -58,7 +58,7 @@ jobs:
         with:
           name: ${{ steps.resource-names.outputs.stack_name }}
           template: cloudformation/stack.json
-          tags: "[{\"Key\": \"Creator\", \"Value\": \"${{ github.repositoryUrl }}\"}]"
+          tags: "[{\"Key\":\"Creator\",\"Value\":\"Sarah\"},{\"Key\": \"GitRepo\", \"Value\": \"${{ github.repositoryUrl }}\"}]"
           no-fail-on-empty-changeset: "1"
           parameter-overrides: >-
             DynamoTableNameParameter=${{ steps.resource-names.outputs.programs_table_name }},
