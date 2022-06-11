@@ -5,7 +5,7 @@
 
   "Parameters" : {
     "HashKeyElementName" : {
-      "Description" : "program_id",
+      "Description" : "HashType ElementName Type",
       "Type" : "String",
       "AllowedPattern" : "[a-zA-Z0-9]*",
       "MinLength": "1",
@@ -65,4 +65,3 @@
     }
   }
 }
-
