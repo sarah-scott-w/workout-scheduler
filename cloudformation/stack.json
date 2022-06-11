@@ -1,77 +1,137 @@
 {
-  "AWSTemplateFormatVersion" : "2010-09-09",
-
-  "Description" : "AWS CloudFormation Sample Template DynamoDB_Table: This template demonstrates the creation of a DynamoDB table.  **WARNING** This template creates an Amazon DynamoDB table. You will be billed for the AWS resources used if you create a stack from this template.",
-
-  "Parameters" : {
-      "DynamoTableNameParameter" : {
-        "Type" : "String",
-        "Default" : "sarah-wo-scheduler-program-newtablename",
-        "Description" : "DynamoDB table name to be generated"
-      },
-    "ECRRepoNameParameter" : {
-        "Type" : "String",
-        "Default" : "sarah-wo-scheduler-repo",
-        "Description" : "DynamoDB table name to be generated"
-      },
-    "ECSClusterNameParameter" : {
-        "Type" : "String",
-        "Default" : "sarah-wo-scheduler-cluster",
-        "Description" : "DynamoDB table name to be generated"
-      }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation Sample Template DynamoDB_Table: This template demonstrates the creation of a DynamoDB table.  **WARNING** This template creates an Amazon DynamoDB table. You will be billed for the AWS resources used if you create a stack from this template.",
+  "Parameters": {
+    "DynamoTableNameParameter": {
+      "Type": "String",
+      "Default": "sarah-wo-scheduler-program-newtablename",
+      "Description": "DynamoDB table name to be generated"
+    },
+    "ECRRepoNameParameter": {
+      "Type": "String",
+      "Default": "sarah-wo-scheduler-repo",
+      "Description": "DynamoDB table name to be generated"
+    },
+    "ECSClusterNameParameter": {
+      "Type": "String",
+      "Default": "sarah-wo-scheduler-cluster",
+      "Description": "DynamoDB table name to be generated"
+    },
+    "ECSTaskNameParameter": {
+      "Type": "String",
+      "Default": "sarah-wo-scheduler-task",
+      "Description": "DynamoDB table name to be generated"
+    }
   },
-
-  "Resources" : {
-    "ProgramTable" : {
-      "Type" : "AWS::DynamoDB::Table",
-      "Properties" : {
-        "TableName": {"Ref" : "DynamoTableNameParameter"},
-        "AttributeDefinitions": [ {
-          "AttributeName" : "program_id",
-          "AttributeType" : "S"
-        } ],
-        "KeySchema": [
-          { "AttributeName": "program_id", "KeyType": "HASH" }
+  "Resources": {
+    "ProgramTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": {
+          "Ref": "DynamoTableNameParameter"
+        },
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "program_id",
+            "AttributeType": "S"
+          }
         ],
-        "ProvisionedThroughput" : {
-          "ReadCapacityUnits" : 1,
-          "WriteCapacityUnits" : 1
+        "KeySchema": [
+          {
+            "AttributeName": "program_id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
         }
       }
     },
     "ECRRepository": {
-      "Type" : "AWS::ECR::Repository",
-      "Properties" : {
-          "ImageTagMutability" : "MUTABLE",
-          "RepositoryName" : {"Ref" : "ECRRepoNameParameter"}
+      "Type": "AWS::ECR::Repository",
+      "Properties": {
+        "ImageTagMutability": "MUTABLE",
+        "RepositoryName": {
+          "Ref": "ECRRepoNameParameter"
         }
+      }
     },
     "ECSCluster": {
-    "Type": "AWS::ECS::Cluster",
-    "Properties": {
-        "ClusterName": {"Ref":  "ECSClusterNameParameter"},
+      "Type": "AWS::ECS::Cluster",
+      "Properties": {
+        "ClusterName": {
+          "Ref": "ECSClusterNameParameter"
+        },
         "CapacityProviders": [
-            "FARGATE",
-            "FARGATE_SPOT"
+          "FARGATE",
+          "FARGATE_SPOT"
         ],
         "DefaultCapacityProviderStrategy": [
-            {
-                "CapacityProvider": "FARGATE",
-                "Weight": 1
-            },
-            {
-                "CapacityProvider": "FARGATE_SPOT",
-                "Weight": 1
-            }
+          {
+            "CapacityProvider": "FARGATE",
+            "Weight": 1
+          },
+          {
+            "CapacityProvider": "FARGATE_SPOT",
+            "Weight": 1
+          }
         ]
+      }
+    },
+    "TaskDefinition": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Name": {
+              "Ref": "ECSTaskNameParameter"
+            },
+            "MountPoints": [],
+            "Image": {
+              "Fn:Join": [
+                "751341637814.dkr.ecr.",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ".amazonaws.com/",
+                {
+                  "Ref": "ECRRepoNameParameter"
+                }
+              ]
+            },
+            "Cpu": 0,
+            "PortMappings": [],
+            "Essential": true,
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Fn:Join": [
+                    "/ecs/",
+                    {
+                      "Ref": "ECSTaskNameParameter"
+                    }
+                  ]
+                },
+                "awslogs-region": {
+                  "Ref": "AWS::Region"
+                },
+                "awslogs-stream-prefix": "ecs"
+              }
+            }
+          }
+        ],
+        "Volumes": []
+      }
     }
-}
   },
-
-  "Outputs" : {
-    "TableName" : {
-      "Value" : {"Ref" : "DynamoTableNameParameter"},
-      "Description" : "Table name of the newly created DynamoDB table"
+  "Outputs": {
+    "TableName": {
+      "Value": {
+        "Ref": "DynamoTableNameParameter"
+      },
+      "Description": "Table name of the newly created DynamoDB table"
     }
   }
 }
