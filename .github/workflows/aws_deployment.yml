@@ -48,6 +48,9 @@ jobs:
         with:
           name: SarahDynamoCloudformationStack
           template: cloudformation/stack.json
+          no-fail-on-empty-changeset: "1"
+          parameter-overrides: >-
+            DynamoTableNameParameter=sarah-got-a-brand-new-table
 
       # push image to ECR
       - name: Login to Amazon ECR
