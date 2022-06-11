@@ -18,7 +18,7 @@ jobs:
   aws:
     runs-on: ubuntu-latest
     outputs:
-      env-name: ${{ steps.env-name.outputs.environment }}
+      env-name: ${{ steps.resource-names.outputs.project_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -47,7 +47,7 @@ jobs:
         run: |
           PROJECT_NAME=`echo $REPO | tr "/" "-"`
           echo "Project name: ${PROJECT_NAME}"
-          echo "::set-output name=environment::${PROJECT_NAME}"
+          echo "::set-output name=project_name::${PROJECT_NAME}"
           echo "::set-output name=stack_name::${PROJECT_NAME}-cloudformation-stack"
           echo "::set-output name=programs_table_name::${PROJECT_NAME}-programs"
           echo "::set-output name=ecr_repo_name::${PROJECT_NAME}-repo"
@@ -75,5 +75,5 @@ jobs:
           ECR_REPOSITORY: ${{ steps.resource-names.outputs.ecr_repo_name }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build --platform=linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
