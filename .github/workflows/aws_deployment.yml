@@ -23,6 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # dump github context to see what git info we have available
+      - name: Dump github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+
       # log in and get environment name
       - name: Configure AWS credentials
         id: creds
