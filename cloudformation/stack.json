@@ -89,7 +89,7 @@
             },
             "MountPoints": [],
             "Image": {
-              "Fn::Join": [
+              "Fn::Join": ["",[
                 "751341637814.dkr.ecr.",
                 {
                   "Ref": "AWS::Region"
@@ -98,7 +98,7 @@
                 {
                   "Ref": "ECRRepoNameParameter"
                 }
-              ]
+              ]]
             },
             "Cpu": 0,
             "PortMappings": [],
@@ -107,12 +107,12 @@
               "LogDriver": "awslogs",
               "Options": {
                 "awslogs-group": {
-                  "Fn::Join": [
+                  "Fn::Join": ["", [
                     "/ecs/",
                     {
                       "Ref": "ECSTaskNameParameter"
                     }
-                  ]
+                  ]]
                 },
                 "awslogs-region": {
                   "Ref": "AWS::Region"
