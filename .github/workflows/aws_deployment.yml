@@ -50,7 +50,7 @@ jobs:
           template: cloudformation/stack.json
           no-fail-on-empty-changeset: "1"
           parameter-overrides: >-
-            DynamoTableNameParameter=sarah-got-a-brand-new-table
+            DynamoTableNameParameter=${{ steps.env-name.outputs.environment }}-programs
 
       # push image to ECR
       - name: Login to Amazon ECR
