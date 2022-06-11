@@ -51,6 +51,7 @@ jobs:
           echo "::set-output name=stack_name::${PROJECT_NAME}-cloudformation-stack"
           echo "::set-output name=programs_table_name::${PROJECT_NAME}-programs"
           echo "::set-output name=ecr_repo_name::${PROJECT_NAME}-repo"
+          echo "::set-output name=ecs_cluster_name::${PROJECT_NAME}-fargate-cluster"
 
       # Deploy cloudformation stack
       - name: Deploy to AWS CloudFormation
@@ -62,7 +63,8 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides: >-
             DynamoTableNameParameter=${{ steps.resource-names.outputs.programs_table_name }},
-            ECRRepoNameParameter=${{ steps.resource-names.outputs.ecr_repo_name }}
+            ECRRepoNameParameter=${{ steps.resource-names.outputs.ecr_repo_name }},
+            ECSClusterNameParameter=${{ steps.resource-names.outputs.ecs_cluster_name }}
 
       # push image to ECR
       - name: Login to Amazon ECR

@@ -11,7 +11,12 @@
       },
     "ECRRepoNameParameter" : {
         "Type" : "String",
-        "Default" : "sarah-wo-scheduler-program-newtablename",
+        "Default" : "sarah-wo-scheduler-repo",
+        "Description" : "DynamoDB table name to be generated"
+      },
+    "ECSClusterNameParameter" : {
+        "Type" : "String",
+        "Default" : "sarah-wo-scheduler-cluster",
         "Description" : "DynamoDB table name to be generated"
       }
   },
@@ -40,7 +45,27 @@
           "ImageTagMutability" : "MUTABLE",
           "RepositoryName" : {"Ref" : "ECRRepoNameParameter"}
         }
+    },
+    "ECSCluster": {
+    "Type": "AWS::ECS::Cluster",
+    "Properties": {
+        "ClusterName": {"Ref":  "ECSClusterNameParameter"},
+        "CapacityProviders": [
+            "FARGATE",
+            "FARGATE_SPOT"
+        ],
+        "DefaultCapacityProviderStrategy": [
+            {
+                "CapacityProvider": "FARGATE",
+                "Weight": 1
+            },
+            {
+                "CapacityProvider": "FARGATE_SPOT",
+                "Weight": 1
+            }
+        ]
     }
+}
   },
 
   "Outputs" : {
