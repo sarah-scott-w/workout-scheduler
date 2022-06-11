@@ -64,7 +64,8 @@ jobs:
           parameter-overrides: >-
             DynamoTableNameParameter=${{ steps.resource-names.outputs.programs_table_name }},
             ECRRepoNameParameter=${{ steps.resource-names.outputs.ecr_repo_name }},
-            ECSClusterNameParameter=${{ steps.resource-names.outputs.ecs_cluster_name }}
+            ECSClusterNameParameter=${{ steps.resource-names.outputs.ecs_cluster_name }},
+            ImageTagParameter=${{ github.sha }}
 
       # push image to ECR
       - name: Login to Amazon ECR

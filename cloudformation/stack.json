@@ -26,6 +26,11 @@
       "Type": "String",
       "Default": "sarah-wo-scheduler-container",
       "Description": "DynamoDB table name to be generated"
+    },
+    "ImageTagParameter": {
+      "Type": "String",
+      "Default": "docker-image-tag",
+      "Description": "DynamoDB table name to be generated"
     }
   },
   "Resources": {
@@ -94,16 +99,23 @@
             },
             "MountPoints": [],
             "Image": {
-              "Fn::Join": ["",[
-                "751341637814.dkr.ecr.",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ".amazonaws.com/",
-                {
-                  "Ref": "ECRRepoNameParameter"
-                }
-              ]]
+              "Fn::Join": [
+                "",
+                [
+                  "751341637814.dkr.ecr.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".amazonaws.com/",
+                  {
+                    "Ref": "ECRRepoNameParameter"
+                  },
+                  ":",
+                  {
+                    "Ref": "ImageTagParameter"
+                  }
+                ]
+              ]
             },
             "Cpu": 0,
             "MemoryReservation": 4,
@@ -113,12 +125,15 @@
               "LogDriver": "awslogs",
               "Options": {
                 "awslogs-group": {
-                  "Fn::Join": ["", [
-                    "/ecs/",
-                    {
-                      "Ref": "ECSTaskNameParameter"
-                    }
-                  ]]
+                  "Fn::Join": [
+                    "",
+                    [
+                      "/ecs/",
+                      {
+                        "Ref": "ECSTaskNameParameter"
+                      }
+                    ]
+                  ]
                 },
                 "awslogs-region": {
                   "Ref": "AWS::Region"
@@ -130,8 +145,16 @@
         ],
         "NetworkMode": "awsvpc",
         "ExecutionRoleArn": "arn:aws:iam::751341637814:role/ecsTaskExecutionRole",
-        "RequiresCompatibilities": ["FARGATE"],
-        "Family": {"Ref":  "ECSClusterNameParameter"},
+        "RequiresCompatibilities": [
+          "FARGATE"
+        ],
+        "Family": {
+          "Ref": "ECSTaskNameParameter"
+        },
+        "RuntimePlatform": {
+          "CpuArchitecture": "X86_64",
+          "OperatingSystemFamily": "LINUX"
+        },
         "Volumes": [],
         "Cpu": "256",
         "Memory": "512"
