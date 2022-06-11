@@ -89,7 +89,7 @@
             },
             "MountPoints": [],
             "Image": {
-              "Fn:Join": [
+              "Fn::Join": [
                 "751341637814.dkr.ecr.",
                 {
                   "Ref": "AWS::Region"
@@ -107,7 +107,7 @@
               "LogDriver": "awslogs",
               "Options": {
                 "awslogs-group": {
-                  "Fn:Join": [
+                  "Fn::Join": [
                     "/ecs/",
                     {
                       "Ref": "ECSTaskNameParameter"
