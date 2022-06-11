@@ -4,12 +4,18 @@
   "Description" : "AWS CloudFormation Sample Template DynamoDB_Table: This template demonstrates the creation of a DynamoDB table.  **WARNING** This template creates an Amazon DynamoDB table. You will be billed for the AWS resources used if you create a stack from this template.",
 
   "Parameters" : {
+      "DynamoTableNameParameter" : {
+        "Type" : "String",
+        "Default" : "sarah-wo-scheduler-program",
+        "Description" : "DynamoDB table name to be generated"
+      }
   },
 
   "Resources" : {
-    "myDynamoDBTable" : {
+    "program-dynamodbtable" : {
       "Type" : "AWS::DynamoDB::Table",
       "Properties" : {
+        "TableName": {"Ref" : "DynamoTableNameParameter"},
         "AttributeDefinitions": [ {
           "AttributeName" : "program_id",
           "AttributeType" : "S"
@@ -27,7 +33,7 @@
 
   "Outputs" : {
     "TableName" : {
-      "Value" : {"Ref" : "myDynamoDBTable"},
+      "Value" : {"Ref" : "DynamoTableNameParameter"},
       "Description" : "Table name of the newly created DynamoDB table"
     }
   }
