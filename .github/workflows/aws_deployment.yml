@@ -78,5 +78,5 @@ jobs:
           ECR_REPOSITORY: ${{ steps.resource-names.outputs.ecr_repo_name }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build --platform=linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --all-tags
+          docker build --platform=linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
