@@ -110,10 +110,7 @@
                   {
                     "Ref": "ECRRepoNameParameter"
                   },
-                  ":",
-                  {
-                    "Ref": "ImageTagParameter"
-                  }
+                  ":latest"
                 ]
               ]
             },
