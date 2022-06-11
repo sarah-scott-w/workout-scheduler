@@ -132,7 +132,9 @@
         "ExecutionRoleArn": "arn:aws:iam::751341637814:role/ecsTaskExecutionRole",
         "RequiresCompatibilities": ["FARGATE"],
         "Family": {"Ref":  "ECSClusterNameParameter"},
-        "Volumes": []
+        "Volumes": [],
+        "Cpu": "256",
+        "Memory": "512"
       }
     }
   },
